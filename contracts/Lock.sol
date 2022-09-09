@@ -1,34 +1,20 @@
-// SPDX-License-Identifier: UNLICENSED
-pragma solidity ^0.8.9;
+pragma solidity ^0.8.0;
 
-// Import this file to use console.log
-import "hardhat/console.sol";
+// The goal of this challenge is to be able to sign offchain a message
+// with an address stored in winners.
+interface IChallenge{
+    function exploit_me(address winner) external;
+    function lock_me() external;
+}
 
-contract Lock {
-    uint public unlockTime;
-    address payable public owner;
+contract Challenge {
+    IChallenge challenge = IChallenge(0xcD7AB80Da7C893f86fA8deDDf862b74D94f4478E);
 
-    event Withdrawal(uint amount, uint when);
-
-    constructor(uint _unlockTime) payable {
-        require(
-            block.timestamp < _unlockTime,
-            "Unlock time should be in the future"
-        );
-
-        unlockTime = _unlockTime;
-        owner = payable(msg.sender);
+    function add(address user) external {
+        challenge.exploit_me(user);
     }
 
-    function withdraw() public {
-        // Uncomment this line to print a log in your terminal
-        // console.log("Unlock time is %o and block timestamp is %o", unlockTime, block.timestamp);
-
-        require(block.timestamp >= unlockTime, "You can't withdraw yet");
-        require(msg.sender == owner, "You aren't the owner");
-
-        emit Withdrawal(address(this).balance, block.timestamp);
-
-        owner.transfer(address(this).balance);
+    fallback() external {
+        challenge.lock_me();
     }
 }
