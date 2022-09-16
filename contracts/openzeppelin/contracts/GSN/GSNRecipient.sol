@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+
 pragma solidity ^0.6.0;
 
 import "./IRelayRecipient.sol";
@@ -113,7 +115,7 @@ abstract contract GSNRecipient is IRelayRecipient, Context {
     /**
      * @dev See `IRelayRecipient.preRelayedCall`.
      *
-     * This function should not be overriden directly, use `_preRelayedCall` instead.
+     * This function should not be overridden directly, use `_preRelayedCall` instead.
      *
      * * Requirements:
      *
@@ -136,7 +138,7 @@ abstract contract GSNRecipient is IRelayRecipient, Context {
     /**
      * @dev See `IRelayRecipient.postRelayedCall`.
      *
-     * This function should not be overriden directly, use `_postRelayedCall` instead.
+     * This function should not be overridden directly, use `_postRelayedCall` instead.
      *
      * * Requirements:
      *

@@ -1,8 +1,8 @@
 import { ethers } from "hardhat";
 
 async function main() {
-  const Lock = await ethers.getContractFactory("DexHack");
-  const lock = await Lock.deploy({gasLimit: 5000000});
+  const Lock = await ethers.getContractFactory("PuzzleWalletHack");
+  const lock = await Lock.deploy({gasLimit: 5000000, value: ethers.utils.parseEther("0.001")});
 
   await lock.deployed();
 

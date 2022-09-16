@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: MIT
+
 pragma solidity ^0.6.2;
 
 import "./escrow/Escrow.sol";
@@ -62,10 +64,6 @@ contract PullPayment {
      * @param amount The amount to transfer.
      */
     function _asyncTransfer(address dest, uint256 amount) internal virtual {
-        // solhint-disable-previous-line no-unused-vars
-
-        // TODO: remove the previous linter directive once
-        // https://github.com/protofire/solhint/issues/170 is fixed
         _escrow.deposit{ value: amount }(dest);
     }
 }
