@@ -1,8 +1,8 @@
 import { ethers } from "hardhat";
 
 async function main() {
-  const Lock = await ethers.getContractFactory("PreservationHack");
-  const lock = await Lock.deploy({gasLimit: 1000000});
+  const Lock = await ethers.getContractFactory("DexHack");
+  const lock = await Lock.deploy({gasLimit: 5000000});
 
   await lock.deployed();
 
